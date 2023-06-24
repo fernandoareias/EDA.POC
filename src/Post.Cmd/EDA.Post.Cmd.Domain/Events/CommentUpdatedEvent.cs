@@ -16,6 +16,6 @@ namespace EDA.Post.Cmd.Domain.Events
         public Guid CommentId { get; set; }
         public string Comment { get; set; }
         public string Username { get; set; }
-        public DateTime CommentDate { get; set; }
+        public DateTime EditDate { get; set; }
     }
 }
