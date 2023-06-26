@@ -2,6 +2,7 @@
 using EDA.Core.Events;
 using EDA.Core.Exceptions;
 using EDA.Core.Infraestructure;
+using EDA.Core.Producers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,11 @@ namespace EDA.Post.Cmd.Infraestructure.Stores
     public class EventStore : IEventStore
     {
         private readonly IEventStoreRepository _eventStoreRepository;
-
-        public EventStore(IEventStoreRepository eventStoreRepository)
+        private readonly IEventProducer _eventProducer;
+        public EventStore(IEventStoreRepository eventStoreRepository, IEventProducer eventProducer)
         {
             _eventStoreRepository = eventStoreRepository;
+            _eventProducer = eventProducer;
         }
 
         public async Task<List<BaseEvent>> GetEventsAsync(Guid aggregateId)
@@ -55,7 +57,9 @@ namespace EDA.Post.Cmd.Infraestructure.Stores
 
                 await _eventStoreRepository.SaveAsync(eventModel);
 
+                await _eventProducer.ProducerAsync("topic", e);
             }
+
 
 
         }

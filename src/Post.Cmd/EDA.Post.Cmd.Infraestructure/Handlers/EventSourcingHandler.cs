@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EDA.Post.Cmd.Infraestructure.Handlers
 {
-    public class EventSourcingHandler : IEventSourcingHandler<Domain.Aggregates.Post>
+    public class EventSourcingHandler : IEventSourcingHandler<Domain.Aggregates.PostAggregate>
     {
         private readonly IEventStore _eventStore;
 
@@ -19,9 +19,9 @@ namespace EDA.Post.Cmd.Infraestructure.Handlers
             _eventStore = eventStore;
         }
 
-        public async Task<Domain.Aggregates.Post> GetByIdAsync(Guid aggregateId)
+        public async Task<Domain.Aggregates.PostAggregate> GetByIdAsync(Guid aggregateId)
         {
-            var aggregate = new Domain.Aggregates.Post();
+            var aggregate = new Domain.Aggregates.PostAggregate();
             var events = await _eventStore.GetEventsAsync(aggregateId);
 
             if (events == null || !events.Any())

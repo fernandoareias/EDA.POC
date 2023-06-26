@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace EDA.Post.Cmd.Domain.Aggregates
 {
-    public class Post : AggregateRoot
+    public class PostAggregate : AggregateRoot
     {
         public bool Active { get; set; }
         public string Author { get; set; }
         public Dictionary<Guid, Tuple<string, string>> Comments { get; set; } = new();
 
-        public Post()
+        public PostAggregate()
         {
                 
         }
 
-        public Post(Guid id, string author, string message)
+        public PostAggregate(Guid id, string author, string message)
         {
             RaiseEvent(new PostCreatedEvent
             {
