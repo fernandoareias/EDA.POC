@@ -1,4 +1,7 @@
+using EDA.Post.Query.Domain.Repositories;
 using EDA.Post.Query.Infraestructure.Data;
+using EDA.Post.Query.Infraestructure.Handlers;
+using EDA.Post.Query.Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 Action<DbContextOptionsBuilder> configureDbContext = (o => o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddSingleton<DatabaseContextFactory>(new DatabaseContextFactory(configureDbContext));
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IEventHandler, EDA.Post.Query.Infraestructure.Handlers.EventHandler>();
+
 
 // Cria database e tabelas
 var dataContext = builder.Services.BuildServiceProvider().GetRequiredService<ApplicationDbContext>();

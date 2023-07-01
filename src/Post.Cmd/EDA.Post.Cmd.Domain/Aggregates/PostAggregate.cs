@@ -11,7 +11,7 @@ namespace EDA.Post.Cmd.Domain.Aggregates
     public class PostAggregate : AggregateRoot
     {
         public bool Active { get; set; }
-        public string Author { get; set; }
+        public string Author { get; set; } = null!;
         public Dictionary<Guid, Tuple<string, string>> Comments { get; set; } = new();
 
         public PostAggregate()

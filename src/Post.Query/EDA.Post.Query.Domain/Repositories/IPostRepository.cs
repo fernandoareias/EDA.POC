@@ -13,7 +13,7 @@ namespace EDA.Post.Query.Domain.Repositories
         Task UpdateAsync(PostEntity post);
         Task DeleteAsync(PostEntity post);
         Task<List<PostEntity>> GetAllAsync();
-        Task<PostEntity> GetByIdAsync(Guid id);
+        Task<PostEntity?> GetByIdAsync(Guid id);
         Task<List<PostEntity>> ListByAuthorAsync(string author);
         Task<List<PostEntity>> ListWithLikesAsync(int numberOfLikes);
         Task<List<PostEntity>> ListWithCommentsAsync();

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EDA.Post.Query.Domain\EDA.Post.Query.Domain.csproj" />
     <ProjectReference Include="..\EDA.Post.Query.Infraestructure\EDA.Post.Query.Infraestructure.csproj" />
   </ItemGroup>
 
