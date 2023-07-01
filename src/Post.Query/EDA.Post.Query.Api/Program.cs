@@ -1,4 +1,6 @@
+using Confluent.Kafka;
 using EDA.Post.Query.Domain.Repositories;
+using EDA.Post.Query.Infraestructure.Consumers;
 using EDA.Post.Query.Infraestructure.Data;
 using EDA.Post.Query.Infraestructure.Handlers;
 using EDA.Post.Query.Infraestructure.Repositories;
@@ -14,6 +16,8 @@ builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IEventHandler, EDA.Post.Query.Infraestructure.Handlers.EventHandler>();
 
+builder.Services.Configure<ConsumerConfig>(builder.Configuration.GetSection(nameof(ConsumerConfig)));
+builder.Services.AddHostedService<ConsumerHostedService>();
 
 // Cria database e tabelas
 var dataContext = builder.Services.BuildServiceProvider().GetRequiredService<ApplicationDbContext>();
