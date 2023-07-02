@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDA.Core.Consumers
+namespace EDA.Core.Queries
 {
-    public interface IEventConsumer
+    public abstract class BaseQuery
     {
-        void Consume(string topic);
     }
 }

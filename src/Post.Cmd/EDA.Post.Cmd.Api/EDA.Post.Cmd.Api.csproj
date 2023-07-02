@@ -16,8 +16,4 @@
     <ProjectReference Include="..\EDA.Post.Cmd.Infraestructure\EDA.Post.Cmd.Infraestructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

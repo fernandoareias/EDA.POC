@@ -34,22 +34,23 @@ namespace EDA.Post.Query.Infraestructure.Consumers
 
             consumer.Subscribe(topic);
 
-            while(true)
+            while (true)
             {
                 var consumerResult = consumer.Consume();
 
                 if (consumerResult?.Message == null) continue;
 
-                var options = new JsonSerializerOptions { Converters = {new EventJsonConverter()} };
+                var options = new JsonSerializerOptions { Converters = { new EventJsonConverter() } };
                 var @event = JsonSerializer.Deserialize<BaseEvent>(consumerResult.Message.Value, options);
 
                 var handlerMethod = _eventHandler.GetType().GetMethod("On", new Type[] { @event.GetType() });
 
-                if(handlerMethod == null)
+                if (handlerMethod == null)
                     throw new ArgumentNullException(nameof(handlerMethod), "Could not find event handler method!");
-                
+
                 handlerMethod.Invoke(_eventHandler, new object[] { @event });
                 consumer.Commit(consumerResult);
+            }
         }
     }
 }

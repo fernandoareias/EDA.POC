@@ -37,7 +37,7 @@ namespace EDA.Post.Query.Infraestructure.Converters
                 nameof(CommentRemovedEvent) => JsonSerializer.Deserialize<CommentRemovedEvent>(json, options),
                 nameof(PostRemovedEvent) => JsonSerializer.Deserialize<PostRemovedEvent>(json, options),
                 _ => throw new JsonException($"{typeDiscriminator} is not supported yet!")
-            }
+            };
         }
 
         public override void Write(Utf8JsonWriter writer, BaseEvent value, JsonSerializerOptions options)
