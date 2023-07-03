@@ -59,5 +59,10 @@ namespace EDA.Post.Cmd.Api.Commands.Handlers
 
             await _eventSourcingHandler.SaveAsync(aggregate);
         }
+
+        public async Task HandleAsync(RestoreReadDbCommand command)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

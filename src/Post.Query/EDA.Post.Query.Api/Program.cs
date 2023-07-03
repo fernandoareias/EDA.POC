@@ -1,7 +1,10 @@
 using Confluent.Kafka;
+using EDA.Post.Query.Api.Queries;
+using EDA.Post.Query.Api.Queries.Handlers;
 using EDA.Post.Query.Domain.Repositories;
 using EDA.Post.Query.Infraestructure.Consumers;
 using EDA.Post.Query.Infraestructure.Data;
+using EDA.Post.Query.Infraestructure.Dispatchers;
 using EDA.Post.Query.Infraestructure.Handlers;
 using EDA.Post.Query.Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +18,12 @@ builder.Services.AddSingleton<DatabaseContextFactory>(new DatabaseContextFactory
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IEventHandler, EDA.Post.Query.Infraestructure.Handlers.EventHandler>();
+builder.Services.AddScoped<IQueryHandler, QueryHandler>();
+
+//
+var queryHandler = builder.Services.BuildServiceProvider().GetService<QueryHandler>();
+var dispatcher = new QueryDispatcher();
+dispatcher.RegisterHandler<FindAllPostsQuery>(queryHandler.HandleAsync);
 
 builder.Services.Configure<ConsumerConfig>(builder.Configuration.GetSection(nameof(ConsumerConfig)));
 builder.Services.AddHostedService<ConsumerHostedService>();

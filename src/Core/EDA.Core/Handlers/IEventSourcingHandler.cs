@@ -11,5 +11,6 @@ namespace EDA.Core.Handlers
     {
         Task SaveAsync(AggregateRoot aggregateRoot);
         Task<T> GetByIdAsync(Guid aggregateId);
+        Task RepublishEventsAsync();
     }
 }
